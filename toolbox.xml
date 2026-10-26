@@ -1,0 +1,35 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="ROBOTFACE" colour="#44cbc6">
+    <label text="%{BKY_ROBOTFACE_SETUP_LABEL}" web-class="blockLabelStyle"></label>
+    <block type="robotface_init"></block>
+
+    <sep gap="30"></sep>
+    <label text="%{BKY_ROBOTFACE_FACE_LABEL}" web-class="blockLabelStyle"></label>
+    <block type="robotface_expression"></block>
+    <block type="robotface_look"></block>
+    <block type="robotface_look_xy">
+      <value name="X">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="Y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+
+    <sep gap="30"></sep>
+    <label text="%{BKY_ROBOTFACE_ANIMATIONS_LABEL}" web-class="blockLabelStyle"></label>
+    <block type="robotface_play"></block>
+    <block type="robotface_stop_animation"></block>
+    <block type="robotface_loop"></block>
+    <block type="robotface_talk_for"></block>
+    <block type="robotface_wait"></block>
+
+    <sep gap="30"></sep>
+    <label text="%{BKY_ROBOTFACE_UPDATE_LABEL}" web-class="blockLabelStyle"></label>
+    <block type="robotface_update"></block>
+  </category>
+</xml>

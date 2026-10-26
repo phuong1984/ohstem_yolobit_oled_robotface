@@ -1,0 +1,17 @@
+{
+    "name": "Robot Face",
+    "description": "Hiển thị và điều khiển khuôn mặt robot trên OLED SSD1306",
+    "libs": [
+        "robotface.py",
+        "ssd1306.py"
+    ],
+    "blocks": [
+        "definition.js"
+    ],
+    "toolbox": "toolbox.xml",
+    "languages": {
+        "en": "languages/en.js",
+        "vi": "languages/vi.js"
+    },
+    "poster": "poster.png"
+}
