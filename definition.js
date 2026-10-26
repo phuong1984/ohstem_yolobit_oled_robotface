@@ -23,19 +23,19 @@ const ROBOTFACE_EXPRESSIONS = [
 ];
 
 const ROBOTFACE_ANIMATIONS = [
-  ['blink', 'blink'],
-  ['double_blink', 'double_blink'],
-  ['wink', 'wink'],
-  ['laugh', 'laugh'],
-  ['surprise', 'surprise'],
-  ['shake', 'shake'],
-  ['nod', 'nod'],
-  ['bounce', 'bounce'],
-  ['look_around', 'look_around'],
-  ['heartbeat', 'heartbeat'],
-  ['dizzy', 'dizzy'],
-  ['fall_asleep', 'fall_asleep'],
-  ['wake_up', 'wake_up'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_BLINK, 'blink'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_DOUBLE_BLINK, 'double_blink'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_WINK, 'wink'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_LAUGH, 'laugh'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_SURPRISE, 'surprise'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_SHAKE, 'shake'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_NOD, 'nod'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_BOUNCE, 'bounce'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_LOOK_AROUND, 'look_around'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_HEARTBEAT, 'heartbeat'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_DIZZY, 'dizzy'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_FALL_ASLEEP, 'fall_asleep'],
+  [Blockly.Msg.ROBOTFACE_ANIMATION_WAKE_UP, 'wake_up'],
 ];
 
 const ROBOTFACE_LOOPS = [
