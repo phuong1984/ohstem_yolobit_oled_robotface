@@ -1,22 +1,25 @@
 const ColorRobotFace = '#44cbc6';
 
+const ROBOTFACE_IMAGE_BASE =
+  'https://raw.githubusercontent.com/phuong1984/ohstem_yolobit_oled_robotface/main/images';
+
 const ROBOTFACE_EXPRESSIONS = [
-  ['neutral', 'neutral'],
-  ['happy', 'happy'],
-  ['laugh', 'laugh'],
-  ['excited', 'excited'],
-  ['love', 'love'],
-  ['wink', 'wink'],
-  ['surprised', 'surprised'],
-  ['talk', 'talk'],
-  ['sad', 'sad'],
-  ['cry', 'cry'],
-  ['angry', 'angry'],
-  ['suspicious', 'suspicious'],
-  ['sleepy', 'sleepy'],
-  ['sleep', 'sleep'],
-  ['dizzy', 'dizzy'],
-  ['error', 'error'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_01_neutral.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_NEUTRAL }, 'neutral'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_02_happy.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_HAPPY }, 'happy'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_03_laugh.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_LAUGH }, 'laugh'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_04_excited.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_EXCITED }, 'excited'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_05_love.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_LOVE }, 'love'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_06_wink.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_WINK }, 'wink'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_07_surprised.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_SURPRISED }, 'surprised'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_08_talk.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_TALK }, 'talk'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_09_sad.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_SAD }, 'sad'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_10_cry.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_CRY }, 'cry'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_11_angry.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_ANGRY }, 'angry'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_12_suspicious.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_SUSPICIOUS }, 'suspicious'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_13_sleepy.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_SLEEPY }, 'sleepy'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_14_sleep.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_SLEEP }, 'sleep'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_15_dizzy.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_DIZZY }, 'dizzy'],
+  [{ src: ROBOTFACE_IMAGE_BASE + '/robot_face_16_error.jpg', width: 64, height: 32, alt: Blockly.Msg.ROBOTFACE_EXPR_ERROR }, 'error'],
 ];
 
 const ROBOTFACE_ANIMATIONS = [
