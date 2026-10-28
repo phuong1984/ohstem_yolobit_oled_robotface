@@ -79,10 +79,6 @@ function robotFaceDeclareImports() {
     'from robotface import RobotFace';
 }
 
-function robotFaceValue(block, name, fallback) {
-  return Blockly.Python.valueToCode(block, name, Blockly.Python.ORDER_NONE) || fallback;
-}
-
 Blockly.Blocks['robotface_init'] = {
   init: function () {
     this.jsonInit({
@@ -188,7 +184,8 @@ Blockly.Python['robotface_play'] = function (block) {
   const wait = block.getFieldValue('WAIT');
   const repeat = mode === 'forever';
   return 'face.play("' + animation + '", wait=' + (repeat ? 'False' : wait) +
-    ', loop=' + (repeat ? 'True' : 'False') + ')\n';
+    ', loop=' + (repeat ? 'True' : 'False') +
+    (repeat ? ', loop_pause_ms=2000' : '') + ')\n';
 };
 
 Blockly.Blocks['robotface_stop_animation'] = {
@@ -295,31 +292,6 @@ Blockly.Blocks['robotface_look'] = {
 
 Blockly.Python['robotface_look'] = function (block) {
   return 'face.look("' + block.getFieldValue('DIRECTION') + '")\n';
-};
-
-Blockly.Blocks['robotface_look_xy'] = {
-  init: function () {
-    this.jsonInit({
-      type: 'robotface_look_xy',
-      message0: Blockly.Msg.ROBOTFACE_LOOK_XY_MESSAGE,
-      args0: [
-        { type: 'input_value', name: 'X', check: 'Number' },
-        { type: 'input_value', name: 'Y', check: 'Number' },
-      ],
-      inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
-      colour: ColorRobotFace,
-      tooltip: Blockly.Msg.ROBOTFACE_LOOK_XY_TOOLTIP,
-      helpUrl: '',
-    });
-  },
-};
-
-Blockly.Python['robotface_look_xy'] = function (block) {
-  const x = robotFaceValue(block, 'X', '0');
-  const y = robotFaceValue(block, 'Y', '0');
-  return 'face.look_xy(' + x + ', ' + y + ')\n';
 };
 
 Blockly.Blocks['robotface_wait'] = {

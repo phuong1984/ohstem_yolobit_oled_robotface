@@ -272,13 +272,16 @@ class RobotFace:
         if wait:
             self.wait(ms)
 
-    def play(self, name, wait=True, loop=False):
+    def play(self, name, wait=True, loop=False, loop_pause_ms=1500):
         """Phát animation một lần hoặc lặp đến khi stop_animation() được gọi."""
         if loop and wait:
             raise ValueError("A looping animation cannot wait for completion")
         dur, pre, post, fn = _ANIMS[name]
         self._finish_anim()
-        self._a = [time.ticks_ms(), dur, pre, post, fn, self._expr, set(), loop]
+        self._a = [
+            time.ticks_ms(), dur, pre, post, fn, self._expr, set(), loop,
+            loop_pause_ms, None,
+        ]
         if pre:
             self.expression(pre, 200)
         if wait:
@@ -418,19 +421,32 @@ class RobotFace:
         a = self._a
         if a is None:
             return
+        if a[7] and a[9] is not None:
+            if time.ticks_diff(now, a[9]) < a[8]:
+                return
+            a[0] = now
+            a[6].clear()
+            a[9] = None
+            if a[2]:
+                self.expression(a[2], 200)
+            elif a[4] == _a_wake:
+                self.expression("sleep", 200)
+            return
+
         t = time.ticks_diff(now, a[0])
         if t >= a[1]:
             if a[7]:
-                a[0] = now
-                a[6].clear()
                 self.an_sx = self.an_sy = 0.0
                 self.an_size = self.an_open = 1.0
                 if not self._user_look:
                     self._gt = (0.0, 0.0)
-                if a[2]:
-                    self.expression(a[2], 200)
+                if a[3] == "restore":
+                    self.expression(a[5], 200)
+                elif a[3]:
+                    self.expression(a[3], 200)
                 elif a[4] == _a_wake:
                     self.expression("sleep", 200)
+                a[9] = now
             else:
                 self._finish_anim()
         elif a[4] is not None:
