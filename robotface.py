@@ -20,7 +20,7 @@ MÔ HÌNH HOẠT ĐỘNG
     * wait(ms) = vòng lặp gọi update() trong ms mili giây. Dùng nó thay cho time.sleep() để robot
       vẫn chớp mắt, nhìn quanh... trong lúc chờ.
     * play() chạy một lần; play(..., loop=True) lặp nền đến khi stop_animation().
-    * Animation LẶP (loop/idle/talk/heartbeat/laugh/sob): chạy cho đến khi tắt.
+    * Hiệu ứng lặp (idle/talk/heartbeat/laugh/sob/breathe/tremble/blink): chạy đến khi tắt.
     * Khuôn mặt là một bộ tham số (độ mở mắt, mí, độ xiên, má, miệng...). Biểu cảm là bộ tham số mẫu;
       các lớp (chớp mắt, nhìn, nói, rung, nảy, đập) chồng lên nhau mà không cần dựng sẵn ảnh.
 """
@@ -37,7 +37,7 @@ EXPRESSIONS = ("neutral", "happy", "laugh", "excited", "love", "wink", "surprise
                "sad", "cry", "angry", "suspicious", "sleepy", "sleep", "dizzy", "error")
 ANIMATIONS = ("blink", "double_blink", "wink", "laugh", "surprise", "shake", "nod", "bounce",
               "look_around", "heartbeat", "dizzy", "fall_asleep", "wake_up")
-LOOPS = ("idle", "talk", "heartbeat", "laugh", "sob")
+LOOPS = ("idle", "talk", "heartbeat", "laugh", "sob", "breathe", "tremble", "blink")
 DIRECTIONS = ("center", "left", "right", "up", "down", "up_left", "up_right", "down_left", "down_right")
 
 TEARS, ZZZ, SPIN = 1, 2, 4                   # cờ phụ của biểu cảm
@@ -70,7 +70,6 @@ _DIRS = {"center": (0, 0), "left": (-1, 0), "right": (1, 0), "up": (0, -1), "dow
 _GLANCES = ((-1, 0), (1, 0), (-1, -0.6), (1, -0.6), (0, -0.8), (0.8, 0.5), (-0.8, 0.5))
 _STAR = [(math.cos(-math.pi / 2 + i * math.pi / 5) * (1 if i % 2 == 0 else 0.45),
           math.sin(-math.pi / 2 + i * math.pi / 5) * (1 if i % 2 == 0 else 0.45)) for i in range(10)]
-_BLINKS = ("rect", "ring")                 # chỉ các kiểu mắt này mới chớp được
 _OFF2 = ((0, 0), (1, 0), (0, 1), (1, 1))
 _OFF3 = ((0, 0), (1, 0), (0, 1), (-1, 0), (0, -1))
 
@@ -304,7 +303,7 @@ class RobotFace:
         return self._a is not None
 
     def loop(self, name, on=True):
-        """Bật/tắt animation LẶP: idle, talk, heartbeat, laugh, sob (xem LOOPS)."""
+        """Bật/tắt hiệu ứng lặp (xem LOOPS)."""
         if on:
             self.loops.add(name)
         else:
@@ -484,6 +483,14 @@ class RobotFace:
             phase = t * math.pi / 180
             sy += 3.5 * abs(math.sin(phase))
             sx += 1.8 * math.sin(phase * 2)
+        if "breathe" in L:
+            phase = t * 2 * math.pi / 2400
+            sy += 1.2 * math.sin(phase)
+            size *= 1 + 0.015 * math.sin(phase)
+        if "tremble" in L:
+            phase = t * 2 * math.pi / 240
+            sx += 1.8 * math.sin(phase)
+            sy += 0.9 * math.sin(phase * 1.4)
         if self.sL == "down" and self.sR == "down":          # ngủ: thở nhẹ
             sy += 1.5 * math.sin(t / 650.0)
         self.lp_sx, self.lp_sy, self.lp_size = sx, sy, size
@@ -505,14 +512,17 @@ class RobotFace:
                 self.bl_open = 1.0
             else:
                 self.bl_open = abs(2 * p - 1)
-        if "idle" not in self.loops:
+        if not self.loops.intersection(("idle", "blink")):
             return
         if self._bl_t0 is None and time.ticks_diff(now, self._next_blink) >= 0:
             self._bl_t0 = now
             self._bl_d = 170
-            gap = 320 if randint(0, 4) == 0 else randint(2000, 5200)    # thỉnh thoảng chớp đôi
+            if "blink" in self.loops:
+                gap = randint(1400, 2600)
+            else:
+                gap = 320 if randint(0, 4) == 0 else randint(2000, 5200)
             self._next_blink = time.ticks_add(now, gap)
-        if not self._user_look and self._a is None:
+        if "idle" in self.loops and not self._user_look and self._a is None:
             if self._glance_end is not None:
                 if time.ticks_diff(now, self._glance_end) >= 0:
                     self._gt = (0.0, 0.0)
@@ -545,8 +555,8 @@ class RobotFace:
         mx = int(self.gx * 8 + sx)
         my = int(sy + self.gy * 5 + c[4] / 2)
         bl = self.bl_open * self.an_open
-        sqL = c[0] * (bl if self.sL in _BLINKS else 1.0) * self._trL
-        sqR = c[0] * (bl if self.sR in _BLINKS else 1.0) * self._trR
+        sqL = c[0] * bl * self._trL
+        sqR = c[0] * bl * self._trR
         mouth = self._mouth_ov or self.mouth
         spin = t * 0.006 if self.flags & SPIN else 0.0
         zc = (1 + (t // 700) % 3) if self.flags & ZZZ else 0
@@ -576,7 +586,7 @@ class RobotFace:
 
     def _eye(self, o, cx, cy, shape, sq, size, spin, left):
         c = self.cur
-        if sq < 0.12 and shape != "down" or sq < 0.5 and shape in ("up", "down"):
+        if sq < 0.12 or sq < 0.5 and shape in ("up", "down"):
             o.fill_rect(cx - 13, cy + 1, 27, 3, 1)               # mắt nhắm (đường ngang)
             return
         if shape == "rect":

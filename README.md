@@ -30,8 +30,9 @@ Blockly extension tạo khuôn mặt robot trên OLED SSD1306 128x64 bằng thư
 - **Hiệu ứng lặp**: là lớp chuyển động chồng lên biểu cảm hiện tại, không tự
   chọn biểu cảm. Chọn biểu cảm phù hợp để hiệu ứng dễ thấy hơn: `love` với
   `heartbeat`, `talk` với hiệu ứng `talk`, `laugh` với hiệu ứng `laugh`, và
-  `cry` với `sob`. `idle` tự chớp mắt và liếc nhìn. Cần có khối cập nhật trong
-  vòng lặp mãi.
+  `cry` với `sob`. Các hiệu ứng `breathe` (thở nhẹ), `tremble` (run nhẹ) và
+  `blink` (chớp mắt lặp) dùng được với mọi biểu cảm; `idle` tự chớp mắt và liếc
+  nhìn. Cần có khối cập nhật trong vòng lặp mãi.
   Có thể bật ở một sự kiện và tắt ở một sự kiện khác. Các hiệu ứng này độc lập
   với chế độ hoạt ảnh lặp của khối **Phát hoạt ảnh**.
 - **Nói trong ... giây**: hoạt ảnh miệng tự bật, chờ đủ thời gian rồi tự tắt.

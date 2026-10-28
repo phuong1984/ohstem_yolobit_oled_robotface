@@ -1,6 +1,6 @@
 {
     "name": "Robot Face",
-    "description": "Hiển thị và điều khiển khuôn mặt robot trên OLED SSD1306",
+    "description": "Hiển thị biểu cảm của robot trên màn hình OLED 128x64 sử dụng giao tiếp I2C",
     "libs": [
         "robotface.py",
         "ssd1306.py"

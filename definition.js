@@ -44,6 +44,9 @@ const ROBOTFACE_LOOPS = [
   [Blockly.Msg.ROBOTFACE_LOOP_HEARTBEAT, 'heartbeat'],
   [Blockly.Msg.ROBOTFACE_LOOP_LAUGH, 'laugh'],
   [Blockly.Msg.ROBOTFACE_LOOP_SOB, 'sob'],
+  [Blockly.Msg.ROBOTFACE_LOOP_BREATHE, 'breathe'],
+  [Blockly.Msg.ROBOTFACE_LOOP_TREMBLE, 'tremble'],
+  [Blockly.Msg.ROBOTFACE_LOOP_BLINK, 'blink'],
 ];
 
 const ROBOTFACE_DIRECTIONS = [
